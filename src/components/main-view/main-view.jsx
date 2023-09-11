@@ -57,9 +57,7 @@ const MainView = () => {
           <MovieCard
             movie={movie}
             key={movie.id}
-            onMovieClick={(newSelectedMovie) =>
-              setSelectedMovie(newSelectedMovie)
-            }
+            onMovieClick={() => setSelectedMovie(movie)}
           />
         ))}
       </div>
