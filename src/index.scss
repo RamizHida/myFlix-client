@@ -3,3 +3,17 @@ $color: steelblue;
 .my-flix {
   color: $color;
 }
+
+.container {
+  border: 2px solid black;
+  margin: 10px 0;
+}
+
+.container span {
+  text-decoration: underline;
+  padding: 10px;
+}
+
+p {
+  margin: 10px;
+}
