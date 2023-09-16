@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
+import LoginView from '../login-view/login-view';
+import SignUpView from '../signup-view/signup-vew';
 
 const MainView = () => {
-  const [movies, setMovies] = useState([]);
+  const storedUser = JSON.parse(localStorage.getItem('user'));
+  const storedtoken = JSON.parse(localStorage.getItem('token'));
 
+  const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const [token, setToken] = useState(storedtoken ? storedtoken : null);
 
   useEffect(() => {
-    fetch('https://myflixdbrender.onrender.com/movies')
+    if (!token) {
+      return;
+    }
+
+    fetch('https://myflixdbrender.onrender.com/movies', {
+      headers: { Authorization: `Bearer ${token}` },
+    })
       .then((res) => res.json())
       .then((movieList) => {
         const moviesFromAPI = movieList.map((movie) => {
@@ -34,7 +46,7 @@ const MainView = () => {
         setMovies(moviesFromAPI);
       })
       .catch((err) => console.log('Something went wrong: ' + err));
-  }, []);
+  }, [token]);
 
   if (selectedMovie) {
     return (
@@ -44,6 +56,22 @@ const MainView = () => {
           setSelectedMovie(null);
         }}
       />
+    );
+  }
+
+  if (!user) {
+    return (
+      <>
+        <LoginView
+          onLoggedIn={(user, token) => {
+            setUser(user);
+            setToken(token);
+            localStorage.clear();
+          }}
+        />
+        or
+        <SignUpView />
+      </>
     );
   }
 
@@ -62,6 +90,14 @@ const MainView = () => {
           />
         ))}
       </div>
+      <button
+        onClick={() => {
+          setUser(null);
+          setToken(null);
+        }}
+      >
+        Logout
+      </button>
     </>
   );
 };
