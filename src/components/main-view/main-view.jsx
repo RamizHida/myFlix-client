@@ -5,8 +5,8 @@ import LoginView from '../login-view/login-view';
 import SignUpView from '../signup-view/signup-vew';
 
 const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('user'));
-  const storedtoken = JSON.parse(localStorage.getItem('token'));
+  const storedUser = JSON.parse(localStorage.getItem('username'));
+  const storedtoken = JSON.parse(localStorage.getItem('userToken'));
 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -66,7 +66,6 @@ const MainView = () => {
           onLoggedIn={(user, token) => {
             setUser(user);
             setToken(token);
-            localStorage.clear();
           }}
         />
         or
@@ -94,6 +93,7 @@ const MainView = () => {
         onClick={() => {
           setUser(null);
           setToken(null);
+          localStorage.clear();
         }}
       >
         Logout

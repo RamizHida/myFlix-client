@@ -25,8 +25,8 @@ function LoginView({ onLoggedIn }) {
       .then((data) => {
         console.log('Login request: ', data);
         if (data.user) {
-          localStorage.setItem('user', JSON.stringify(data.user));
-          localStorage.setItem('token', JSON.stringify(data.token));
+          localStorage.setItem('username', JSON.stringify(data.user));
+          localStorage.setItem('userToken', JSON.stringify(data.token));
           onLoggedIn(data.user, data.token);
         } else {
           alert('No such user');
