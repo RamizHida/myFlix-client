@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function SignUpView() {
-  const [username, setUsername] = useState('');
+  const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userBirthDate, setUserBirthdate] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday,
+      userName: userName,
+      password: password,
+      userEmail: userEmail,
+      userBirthDate: userBirthDate,
     };
 
     fetch('https://myflixdbrender.onrender.com/users', {
@@ -33,48 +35,49 @@ function SignUpView() {
   };
 
   return (
-    <>
-      <h1>Sign up!</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="">
-          Username:
-          <input
-            type="text"
-            minLength={4}
-            required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <label htmlFor="">
-          Password:
-          <input
-            type="text"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </label>
-        <label htmlFor="">
-          Email:
-          <input
-            type="text"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </label>
-        <label htmlFor="">
-          Birthday:
-          <input
-            type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-          />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
-    </>
+    <Form onSubmit={handleSubmit}>
+      <h1>Sign Up</h1>
+      <Form.Group controlId="formUsername">
+        <Form.Label>Username: </Form.Label>
+        <Form.Control
+          type="text"
+          value={userName}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+          minLength="4"
+        />
+      </Form.Group>
+      <Form.Group controlId="formPassword">
+        <Form.Label>Password: </Form.Label>
+        <Form.Control
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Form.Group controlId="formEmail">
+        <Form.Label>Email: </Form.Label>
+        <Form.Control
+          type="text"
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Form.Group controlId="formBirthday">
+        <Form.Label>Birthday: </Form.Label>
+        <Form.Control
+          type="date"
+          value={userBirthDate}
+          onChange={(e) => setUserBirthdate(e.target.value)}
+          required
+        />
+      </Form.Group>
+      <Button variant="primary" type="submit" className="mt-2 mb-3">
+        Submit
+      </Button>
+    </Form>
   );
 }
 
