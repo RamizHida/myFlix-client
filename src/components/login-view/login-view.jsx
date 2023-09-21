@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 function LoginView({ onLoggedIn }) {
-  const [username, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
@@ -10,8 +12,8 @@ function LoginView({ onLoggedIn }) {
     event.preventDefault();
 
     const data = {
-      acess: username,
-      secret: password,
+      userName: userName,
+      password: password,
     };
 
     fetch('https://myflixdbrender.onrender.com/login', {
@@ -25,9 +27,11 @@ function LoginView({ onLoggedIn }) {
       .then((data) => {
         console.log('Login request: ', data);
         if (data.user) {
-          localStorage.setItem('username', JSON.stringify(data.user));
-          localStorage.setItem('userToken', JSON.stringify(data.token));
-          onLoggedIn(data.user, data.token);
+          localStorage.setItem('userName', JSON.stringify(data.user));
+          // localStorage.setItem('myFlixClientToken', JSON.stringify(data.token));
+          localStorage.setItem('myFlixClientToken', data.token);
+
+          location.reload();
         } else {
           alert('No such user');
         }
@@ -37,29 +41,31 @@ function LoginView({ onLoggedIn }) {
 
   return (
     <>
-      <h1>Login In!</h1>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="">
-          Username:
-          <input
+      <Form onSubmit={handleSubmit}>
+        <h1>Log In</h1>
+        <Form.Group controlId="formUsername">
+          <Form.Label>Username:</Form.Label>
+          <Form.Control
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             required
-            minLength={4}
+            minLength="4"
           />
-        </label>
-        <label htmlFor="">
-          Password:
-          <input
+        </Form.Group>
+        <Form.Group controlId="formPassword">
+          <Form.Label>Password:</Form.Label>
+          <Form.Control
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-        </label>
-        <button type="submit">Submit</button>
-      </form>
+        </Form.Group>
+        <Button variant="primary" type="submit" className="mt-2">
+          Submit
+        </Button>
+      </Form>
     </>
   );
 }
