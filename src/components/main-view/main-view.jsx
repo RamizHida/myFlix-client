@@ -9,7 +9,8 @@ import Col from 'react-bootstrap/Col';
 
 const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('userName'));
-  const storedtoken = JSON.parse(localStorage.getItem('token'));
+  // const storedtoken = JSON.parse(localStorage.getItem('myFlixClientToken'));
+  const storedtoken = localStorage.getItem('myFlixClientToken');
 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
