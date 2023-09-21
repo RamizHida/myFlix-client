@@ -3,19 +3,19 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function SignUpView() {
-  const [username, setUsername] = useState('');
+  const [userName, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
-  const [birthday, setBirthday] = useState('');
+  const [userEmail, setUserEmail] = useState('');
+  const [userBirthDate, setUserBirthdate] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
     const data = {
-      Username: username,
-      Password: password,
-      Email: email,
-      Birthday: birthday,
+      userName: userName,
+      password: password,
+      userEmail: userEmail,
+      userBirthDate: userBirthDate,
     };
 
     fetch('https://myflixdbrender.onrender.com/users', {
@@ -41,7 +41,7 @@ function SignUpView() {
         <Form.Label>Username: </Form.Label>
         <Form.Control
           type="text"
-          value={username}
+          value={userName}
           onChange={(e) => setUsername(e.target.value)}
           required
           minLength="4"
@@ -60,8 +60,8 @@ function SignUpView() {
         <Form.Label>Email: </Form.Label>
         <Form.Control
           type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={userEmail}
+          onChange={(e) => setUserEmail(e.target.value)}
           required
         />
       </Form.Group>
@@ -69,8 +69,8 @@ function SignUpView() {
         <Form.Label>Birthday: </Form.Label>
         <Form.Control
           type="date"
-          value={birthday}
-          onChange={(e) => setBirthday(e.target.value)}
+          value={userBirthDate}
+          onChange={(e) => setUserBirthdate(e.target.value)}
           required
         />
       </Form.Group>

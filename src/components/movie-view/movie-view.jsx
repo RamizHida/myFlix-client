@@ -5,36 +5,48 @@ const MovieView = ({ movie, onBackClick }) => {
   return (
     <>
       <div>
-        <img src={movie.img} />
+        <img src={movie.image} className="movie-view-image" />
       </div>
       <div>
-        <span>Title: </span>
-        <span>{movie.title}</span>
+        <span className="movie-detials">Title: {movie.title}</span>
       </div>
       <div>
-        <span>Description: </span>
+        <span className="movie-detials">Description: </span>
         <span>{movie.description}</span>
       </div>
       <div className="container">
-        <span>Director Info: </span>
-        <p>Name: {movie.director.name}</p>
-        <p>Bio: {movie.director.bio}</p>
-        <p>Born in: {movie.director.birthday.slice(0, 10)}</p>
+        <span className="movie-detials">Director Info: </span>
+        <p>
+          <span>Name:</span> {movie.director.name}
+        </p>
+        <p>
+          <span>Bio:</span> {movie.director.bio}
+        </p>
+        <p>
+          <span>Born in: </span> {movie.director.birthday.slice(0, 10)}
+        </p>
       </div>
-      <div class="container">
-        <span>Genre: </span>
-        <p>Type: {movie.genre.name}</p>
-        <p>Description: {movie.genre.description}</p>
+      <div className="container">
+        <span className="movie-detials">Genre: </span>
+        <p>
+          <span>Type: </span> {movie.genre.name}
+        </p>
+        <p>
+          <span>Description: </span>
+          {movie.genre.description}
+        </p>
       </div>
       <div>
-        <span>Featured : </span>
+        <span className="movie-detials">Featured : </span>
         <span>{movie.featured.toString()}</span>
       </div>
       <div>
-        <span>ID : </span>
+        <span className="movie-detials">ID : </span>
         <span>{movie.id}</span>
       </div>
-      <button onClick={onBackClick}>Go Back</button>
+      <button onClick={onBackClick} className="back-btn">
+        Go Back
+      </button>
     </>
   );
 };

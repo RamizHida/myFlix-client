@@ -8,8 +8,8 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 
 const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('username'));
-  const storedtoken = JSON.parse(localStorage.getItem('userToken'));
+  const storedUser = JSON.parse(localStorage.getItem('userName'));
+  const storedtoken = JSON.parse(localStorage.getItem('token'));
 
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
@@ -131,16 +131,14 @@ const MainView = () => {
         <div>The list is empty!</div>
       ) : (
         <>
-          <div>
-            {movies.map((movie) => (
-              <Col key={movie.id} md={3} className="mb-5">
-                <MovieCard
-                  movie={movie}
-                  onMovieClick={() => setSelectedMovie(movie)}
-                />
-              </Col>
-            ))}
-          </div>
+          {movies.map((movie) => (
+            <Col key={movie.id} className="mb-4" md={4}>
+              <MovieCard
+                movie={movie}
+                onMovieClick={() => setSelectedMovie(movie)}
+              />
+            </Col>
+          ))}
           <Button
             variant="primary"
             onClick={() => {
@@ -148,6 +146,7 @@ const MainView = () => {
               setToken(null);
               localStorage.clear();
             }}
+            className="logout"
           >
             Logout
           </Button>

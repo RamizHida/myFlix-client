@@ -1,4 +1,5 @@
 $color: steelblue;
+$color-secondary: #000;
 
 .my-flix {
   color: $color;
@@ -8,7 +9,7 @@ $color: steelblue;
   padding: 0.5rem;
   font-size: 1.5rem;
   margin-left: 2rem;
-  color: #000;
+  color: $color-secondary;
 }
 
 img {
@@ -16,15 +17,43 @@ img {
 }
 
 .container {
-  border: 2px solid black;
-  margin: 10px 0;
-}
-
-.container span {
-  text-decoration: underline;
+  border: 2px solid $color;
+  margin: 15px 0;
   padding: 10px;
+  border-radius: 10px;
 }
 
 p {
   margin: 10px;
+}
+
+.movie-image {
+  height: 65%;
+}
+
+.back-btn {
+  padding: 4px 12px 4px 12px;
+  color: whitesmoke;
+  background-color: $color-secondary;
+  border: none;
+  margin: 10px;
+  border-radius: 4px;
+}
+
+.movie-detials {
+  font-weight: bolder;
+  // color: $color-secondary;
+}
+
+.logout {
+  color: green;
+}
+
+.movie-view-image {
+  margin-bottom: 10px;
+  height: 550px;
+}
+
+p span {
+  color: #000;
 }

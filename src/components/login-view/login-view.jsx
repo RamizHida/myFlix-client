@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
 function LoginView({ onLoggedIn }) {
-  const [username, setUsername] = useState('');
+  const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (event) => {
@@ -12,8 +12,8 @@ function LoginView({ onLoggedIn }) {
     event.preventDefault();
 
     const data = {
-      acess: username,
-      secret: password,
+      userName: userName,
+      password: password,
     };
 
     fetch('https://myflixdbrender.onrender.com/login', {
@@ -27,8 +27,8 @@ function LoginView({ onLoggedIn }) {
       .then((data) => {
         console.log('Login request: ', data);
         if (data.user) {
-          localStorage.setItem('username', JSON.stringify(data.user));
-          localStorage.setItem('userToken', JSON.stringify(data.token));
+          localStorage.setItem('userName', JSON.stringify(data.user));
+          localStorage.setItem('token', JSON.stringify(data.token));
           onLoggedIn(data.user, data.token);
         } else {
           alert('No such user');
@@ -45,8 +45,8 @@ function LoginView({ onLoggedIn }) {
           <Form.Label>Username:</Form.Label>
           <Form.Control
             type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
             required
             minLength="4"
           />
