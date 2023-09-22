@@ -1,7 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
-const MovieView = ({ movie, onBackClick }) => {
+const MovieView = ({ movies }) => {
+  const { movieId } = useParams();
+
+  const movie = movies.find((m) => m.id === movieId);
+
   return (
     <>
       <div>
@@ -44,9 +50,9 @@ const MovieView = ({ movie, onBackClick }) => {
         <span className="movie-detials">ID : </span>
         <span>{movie.id}</span>
       </div>
-      <button onClick={onBackClick} className="back-btn">
-        Go Back
-      </button>
+      <Link to={'/'}>
+        <button className="back-button">Back</button>
+      </Link>
     </>
   );
 };
@@ -71,5 +77,4 @@ MovieView.propTypes = {
     id: PropTypes.string,
     featured: PropTypes.bool.isRequired,
   }),
-  onBackClick: PropTypes.func.isRequired,
 };
