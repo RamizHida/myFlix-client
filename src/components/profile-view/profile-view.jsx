@@ -117,6 +117,11 @@ function ProfileView({ movies }) {
 
   // For Modal
   const [show, setShow] = useState(false);
+  const [deleteShow, setDeleteShow] = useState(false);
+
+  const handleDeleteClose = () => setDeleteShow(false);
+  const handleDeleteShow = () => setDeleteShow(true);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -195,29 +200,24 @@ function ProfileView({ movies }) {
   };
 
   const deleteAccount = () => {
-    fetch('https://myflixdbrender.onrender.com/users/' + username, {
+    fetch('https://myflixdbrender.onrender.com/users/' + userName, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(user),
     })
       .then((res) => {
-        console.log(res.json);
         res.json;
       })
       .then((data) => {
-        console.log(data);
         setUser(null);
         localStorage.clear();
         window.location.reload();
       })
       .catch((err) => console.log('Failed to Delete: ' + err));
   };
-
-  // console.log(allUsers);
-  // console.log(user);
 
   return (
     <>
@@ -237,12 +237,17 @@ function ProfileView({ movies }) {
                 className="m-2"
                 onClick={() => {
                   handleShow();
-                  console.log('update clicke');
                 }}
               >
                 Update Profile
               </Button>
-              <Button variant="danger" className="m-2">
+              <Button
+                variant="danger"
+                className="m-2"
+                onClick={() => {
+                  handleDeleteShow();
+                }}
+              >
                 Delete Account
               </Button>
             </Card.Body>
@@ -315,7 +320,7 @@ function ProfileView({ movies }) {
         </Modal>
       </Form>
 
-      {/* <Modal>
+      <Modal show={deleteShow} onHide={handleDeleteClose}>
         <Modal.Header closeButton>
           <Modal.Title className="ms-auto">Deregister</Modal.Title>
         </Modal.Header>
@@ -323,14 +328,14 @@ function ProfileView({ movies }) {
           <h4>Would you like to delete your account?</h4>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseDeregister}>
+          <Button variant="secondary" onClick={handleDeleteClose}>
             Close
           </Button>
           <Button variant="primary" onClick={deleteAccount}>
             Delete account
           </Button>
         </Modal.Footer>
-      </Modal> */}
+      </Modal>
     </>
   );
 }
