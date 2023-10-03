@@ -3,6 +3,7 @@ import MovieCard from '../movie-card/movie-card';
 import MovieView from '../movie-view/movie-view';
 import LoginView from '../login-view/login-view';
 import SignUpView from '../signup-view/signup-vew';
+import ProfileView from '../profile-view/profile-view';
 import { NavigationBar } from '../navigation-bar/navigation-bar';
 import { Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -10,7 +11,7 @@ import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem('userName'));
+  const storedUser = JSON.parse(localStorage.getItem('user'));
   // const storedtoken = JSON.parse(localStorage.getItem('myFlixClientToken'));
   const storedtoken = localStorage.getItem('myFlixClientToken');
 
@@ -178,6 +179,22 @@ const MainView = () => {
                         <MovieCard movie={movie} />
                       </Col>
                     ))}
+                  </>
+                )}
+              </>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <>
+                {!user ? (
+                  <Navigate to="/login" replace />
+                ) : (
+                  <>
+                    <Col className="mb-4" md={3}>
+                      <ProfileView movies={movies} />
+                    </Col>
                   </>
                 )}
               </>

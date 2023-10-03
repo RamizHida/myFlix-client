@@ -27,11 +27,11 @@ function LoginView({ onLoggedIn }) {
       .then((data) => {
         console.log('Login request: ', data);
         if (data.user) {
-          localStorage.setItem('userName', JSON.stringify(data.user));
+          localStorage.setItem('user', JSON.stringify(data.user));
           // localStorage.setItem('myFlixClientToken', JSON.stringify(data.token));
           localStorage.setItem('myFlixClientToken', data.token);
 
-          location.reload();
+          location.push('/');
         } else {
           alert('No such user');
         }
