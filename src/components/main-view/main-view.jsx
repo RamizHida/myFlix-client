@@ -193,7 +193,7 @@ const MainView = () => {
                   <Navigate to="/login" replace />
                 ) : (
                   <>
-                    <Col className="mb-4" md={3}>
+                    <Col className="mb-4 card--body" md={3}>
                       <ProfileView movies={movies} />
                     </Col>
                   </>

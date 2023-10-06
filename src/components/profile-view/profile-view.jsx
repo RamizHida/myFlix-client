@@ -1,114 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Card, Col, Row, Modal, Form } from 'react-bootstrap';
-
-// function ProfileView() {
-//   const token = localStorage.getItem('myFlixClientToken');
-//   const [allUsers, setAllUsers] = useState(null);
-//   // const [username, setUserName] = useState('');
-//   // const [password, setPassword] = useState('');
-//   // const [email, setEmail] = useState('');
-//   // const [birthday, setBirthday] = useState('');
-
-//   // useEffect(() => {
-//   //   fetch('https://myflixdbrender.onrender.com/movies', {
-//   //     headers: { Authorization: `Bearer ${token}` },
-//   //   })
-//   //     .then((res) => {
-//   //       // console.log(res);
-//   //       res.json();
-//   //     })
-//   //     .then((userList) => {
-//   //       console.log(userList);
-//   //       const usersFromAPI = userList.map((user) => {
-//   //         return {
-//   //           Username: user.userName,
-//   //           Password: user.password,
-//   //           Email: user.userEmail,
-//   //           Birtday: user.userBirthDate,
-//   //         };
-//   //       });
-//   //       setUserInfo(usersFromAPI);
-//   //       console.log(userInfo);
-//   //     })
-//   //     .catch((err) => console.log('Could not get users: ', err));
-//   // }, []);
-
-//   useEffect(() => {
-//     if (!token) {
-//       return;
-//     }
-
-//     fetch('https://myflixdbrender.onrender.com/users', {
-//       headers: { Authorization: `Bearer ${token}` },
-//     })
-//       .then((res) => res.json())
-//       .then((userList) => {
-//         const usersFromAPI = userList.map((user) => {
-//           console.log(user);
-//           return {
-//             Username: user.userName,
-//             Password: user.password,
-//             Email: user.userEmail,
-//             Birthday: user.userBirthDate,
-//             FavoriteMovies: user.favoriteMovies,
-//           };
-//         });
-//         setAllUsers(usersFromAPI);
-//       })
-//       .catch((err) => console.log('Something went wrong: ' + err));
-//   }, []);
-
-//   let loggedInUser;
-
-//   console.log(allUsers);
-//   if (allUsers) {
-//     loggedInUser = allUsers.find(
-//       (user) =>
-//         user.Username === JSON.parse(localStorage.getItem('userName')).userName
-//     );
-//   }
-
-//   // Find current user via local storage
-//   // const loggedInUser = JSON.parse(localStorage.getItem('userName')).userName;
-
-//   // set user
-//   // const currentUser = allUsers.filter((user) => user.Username === loggedInUser);
-
-//   return (
-//     loggedInUser && (
-//       <Row>
-//         <Col>
-//           <Card className="h-100" style={{ width: '15rem', marginTop: '10px' }}>
-//             {/* <Card.Img variant="top" src={user.image} className="movie-image" /> */}
-//             <Card.Body>
-//               <Card.Title>My Profile</Card.Title>
-//               <Card.Text>
-//                 Username: {loggedInUser.Username} <br />
-//                 Email: {loggedInUser.Username} <br />
-//                 Birthday: {loggedInUser.Birthday.slice(0, 10)} <br />
-//                 Favorite Movies: <br />
-//                 {loggedInUser.FavoriteMovies <= 0
-//                   ? 'No Movies Chosen'
-//                   : loggedInUser.FavoriteMovies}
-//                 <br />
-//                 <Button>Edit Profile</Button>
-//               </Card.Text>
-//             </Card.Body>
-//           </Card>
-//         </Col>
-//       </Row>
-//     )
-//   );
-// }
-
-// export default ProfileView;
-
-/// New Code Below This Line
+import { Link } from 'react-router-dom';
+import MovieCard from '../movie-card/movie-card';
+import FavoriteMovieCard from '../favorite-movie-card/favorite-movie-card';
 
 import React from 'react';
-import { number } from 'prop-types';
 
 function ProfileView({ movies }) {
+  const [fromProfile, setFromProfile] = useState('/');
+
   const [user, setUser] = useState([]);
   const [userName, setUserName] = useState('');
   const [password, setPassword] = useState('');
@@ -158,6 +58,9 @@ function ProfileView({ movies }) {
         setBirthday(user.userBirthDate.slice(0, 10));
       }
       setPassword(user.password);
+      let favoriteMovies = movies.filter((m) =>
+        JSON.parse(localStorage.getItem('user')).favoriteMovies.includes(m._id)
+      );
     }
   }, [user]);
 
@@ -188,6 +91,7 @@ function ProfileView({ movies }) {
         if (error) {
           console.log(error);
           alert('Invalid Input values. Please try again.');
+          window.location.reload();
           return;
         } else {
           localStorage.setItem('user', JSON.stringify(updatedUser));
@@ -219,11 +123,15 @@ function ProfileView({ movies }) {
       .catch((err) => console.log('Failed to Delete: ' + err));
   };
 
+  let favoriteMovies = movies.filter((m) =>
+    JSON.parse(localStorage.getItem('user')).favoriteMovies.includes(m._id)
+  );
+
   return (
     <>
       <Row>
         <Col>
-          <Card className="p-20 card-body">
+          <Card className="p-20 card-body m-4">
             <Card.Body>
               <Card.Title>Profile Info</Card.Title>
               <Card.Text>
@@ -241,13 +149,7 @@ function ProfileView({ movies }) {
               >
                 Update Profile
               </Button>
-              <Button
-                variant="danger"
-                className="m-2"
-                onClick={() => {
-                  handleDeleteShow();
-                }}
-              >
+              <Button variant="danger" className="m-2">
                 Delete Account
               </Button>
             </Card.Body>
@@ -255,7 +157,11 @@ function ProfileView({ movies }) {
         </Col>
       </Row>
       <Row>
-        <h3>Favorite Movies</h3>
+        {favoriteMovies.map((movie) => (
+          <Col className="mb-4" key={movie.id} md={3}>
+            <FavoriteMovieCard movie={movie} />
+          </Col>
+        ))}
       </Row>
 
       <Form onSubmit={updateUser}>

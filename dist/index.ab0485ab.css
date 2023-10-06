@@ -13403,4 +13403,9 @@ p span {
   text-align: center;
 }
 
+.card--body {
+  width: auto;
+  margin-top: 20px;
+}
+
 /*# sourceMappingURL=index.ab0485ab.css.map */

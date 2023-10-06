@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
@@ -9,8 +9,13 @@ const MovieCard = ({ movie }) => {
   console.log(token);
   const movieId = movie._id;
 
-  const addToFavorite = () => {
-    console.log(movieId);
+  // const [favored, setFavored] = useState(false);
+
+  const addToFavorite = (e) => {
+    // Dont send request for same movie
+    if (e.target.textContent === 'Already Favored') return;
+
+    console.log(movieId, 'ran');
     fetch(
       `https://myflixdbrender.onrender.com/users/${user.userName}/movies/${movieId}`,
       {
@@ -31,7 +36,8 @@ const MovieCard = ({ movie }) => {
         });
 
         updatedUser.favoriteMovies = uniqueMovies;
-        return localStorage.setItem('user', JSON.stringify(updatedUser));
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        window.location.reload();
       })
       .catch((err) => console.log('Error is: ', err));
   };
@@ -46,7 +52,9 @@ const MovieCard = ({ movie }) => {
           <Button variant="link">Detials</Button>
         </Link>
         <Button variant="secondary" onClick={addToFavorite}>
-          Add To Favorites
+          {user.favoriteMovies.includes(movieId)
+            ? 'Already Favored'
+            : 'Add to Favorites'}
         </Button>
       </Card.Body>
     </Card>

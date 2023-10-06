@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
+import ProfileView from '../profile-view/profile-view';
 
 const MovieView = ({ movies }) => {
   const { movieId } = useParams();
@@ -51,7 +53,7 @@ const MovieView = ({ movies }) => {
         <span>{movie.id}</span>
       </div>
       <Link to={'/'}>
-        <button className="back-button">Back</button>
+        <Button className="back-Button">Back</Button>
       </Link>
     </>
   );
