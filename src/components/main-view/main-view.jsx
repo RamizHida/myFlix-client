@@ -32,6 +32,7 @@ const MainView = () => {
         const moviesFromAPI = movieList.map((movie) => {
           console.log(movie, movie.featured);
           return {
+            _id: movie._id,
             director: {
               name: movie.Director.name,
               bio: movie.Director.bio,
