@@ -29,7 +29,7 @@ function SignUpView() {
         alert('Signup Successful');
         window.location.reload();
       } else {
-        alert('Signup Failed');
+        alert('User name not available');
       }
     });
   };
@@ -59,7 +59,7 @@ function SignUpView() {
       <Form.Group controlId="formEmail">
         <Form.Label>Email: </Form.Label>
         <Form.Control
-          type="text"
+          type="email"
           value={userEmail}
           onChange={(e) => setUserEmail(e.target.value)}
           required

@@ -13403,9 +13403,19 @@ p span {
   text-align: center;
 }
 
-.card--body {
+.profile-cont {
   width: auto;
-  margin-top: 20px;
+}
+
+.favorite--movie_card {
+  width: 100%;
+}
+
+@media only screen and (width >= 769px) {
+  .profile-info {
+    width: 320px;
+    margin-left: -50px;
+  }
 }
 
 /*# sourceMappingURL=index.ab0485ab.css.map */

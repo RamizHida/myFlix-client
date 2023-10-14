@@ -25,18 +25,20 @@ function LoginView({ onLoggedIn }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('Login request: ', data);
+        // console.log('Login request: ', data);
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
           // localStorage.setItem('myFlixClientToken', JSON.stringify(data.token));
           localStorage.setItem('myFlixClientToken', data.token);
-
-          location.push('/');
+          window.location.reload();
         } else {
           alert('No such user');
         }
       })
-      .catch((error) => alert('Something went wrong: ', error));
+      .catch((error) => {
+        console.log('error is', error);
+        return alert('Something went wrongg: ', error);
+      });
   };
 
   return (

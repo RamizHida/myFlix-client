@@ -41,7 +41,7 @@ const FavoriteMovieCard = ({ movie }) => {
           <Card.Title>{movie.title}</Card.Title>
           <Card.Text>Directed by {movie.director.name}</Card.Text>
           <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-            <Button variant="link">Detials</Button>
+            <Button variant="link">Details</Button>
           </Link>
           <Button variant="danger" onClick={handleDeleteShow}>
             Remove
@@ -51,7 +51,7 @@ const FavoriteMovieCard = ({ movie }) => {
 
       <Modal show={deleteShow} onHide={handleDeleteClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="ms-auto">Deregister</Modal.Title>
+          <Modal.Title className="ms-auto">Remove Movie</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <h4>Are you sure you want to remove?</h4>

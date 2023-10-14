@@ -129,15 +129,16 @@ function ProfileView({ movies }) {
 
   return (
     <>
-      <Row>
+      <Row className="profile-info">
         <Col>
-          <Card className="p-20 card-body m-4">
-            <Card.Body>
+          <Card className="card-body card-cont mt-2 mb-4">
+            <Card.Body className="profile-cont">
               <Card.Title>Profile Info</Card.Title>
               <Card.Text>
                 Username: {userName} <br />
                 Email: {email} <br />
                 Birthday: {birthday}
+                {/* Password: {password} */}
                 <br />
               </Card.Text>
               <Button
@@ -149,7 +150,13 @@ function ProfileView({ movies }) {
               >
                 Update Profile
               </Button>
-              <Button variant="danger" className="m-2">
+              <Button
+                variant="danger"
+                className="m-2"
+                onClick={() => {
+                  handleDeleteShow();
+                }}
+              >
                 Delete Account
               </Button>
             </Card.Body>
@@ -158,7 +165,7 @@ function ProfileView({ movies }) {
       </Row>
       <Row>
         {favoriteMovies.map((movie) => (
-          <Col className="mb-4" key={movie.id} md={3}>
+          <Col className="mb-4 favorite--movie_card" key={movie.id} md={3}>
             <FavoriteMovieCard movie={movie} />
           </Col>
         ))}

@@ -49,7 +49,7 @@ const MovieCard = ({ movie }) => {
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>Directed by {movie.director.name}</Card.Text>
         <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
-          <Button variant="link">Detials</Button>
+          <Button variant="link">Details</Button>
         </Link>
         <Button variant="secondary" onClick={addToFavorite}>
           {user.favoriteMovies.includes(movieId)
