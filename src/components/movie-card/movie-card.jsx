@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-const MovieCard = ({ movie }) => {
+const MovieCard = ({ movie, getMovies }) => {
   const token = localStorage.getItem('myFlixClientToken');
   const user = JSON.parse(localStorage.getItem('user'));
   console.log(token);
@@ -37,7 +37,9 @@ const MovieCard = ({ movie }) => {
 
         updatedUser.favoriteMovies = uniqueMovies;
         localStorage.setItem('user', JSON.stringify(updatedUser));
-        window.location.reload();
+        // window.location.reload();
+
+        getMovies();
       })
       .catch((err) => console.log('Error is: ', err));
   };

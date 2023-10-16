@@ -24,6 +24,10 @@ const MainView = () => {
       return;
     }
 
+    getMovies();
+  }, [token]);
+
+  const getMovies = () => {
     fetch('https://myflixdbrender.onrender.com/movies', {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -53,61 +57,7 @@ const MainView = () => {
         setMovies(moviesFromAPI);
       })
       .catch((err) => console.log('Something went wrong: ' + err));
-  }, [token]);
-
-  //   if (selectedMovie) {
-  //     return (
-  //       <MovieView
-  //         movie={selectedMovie}
-  //         onBackClick={() => {
-  //           setSelectedMovie(null);
-  //         }}
-  //       />
-  //     );
-  //   }
-
-  //   if (!user) {
-  //     return (
-  //       <>
-  //         <LoginView
-  //           onLoggedIn={(user, token) => {
-  //             setUser(user);
-  //             setToken(token);
-  //           }}
-  //         />
-  //         or
-  //         <SignUpView />
-  //       </>
-  //     );
-  //   }
-
-  //   if (movies.length === 0) {
-  //     return <div>No movies avalible!</div>;
-  //   }
-
-  //   return (
-  //     <>
-  //       <div>
-  //         {movies.map((movie) => (
-  //           <MovieCard
-  //             movie={movie}
-  //             key={movie.id}
-  //             onMovieClick={() => setSelectedMovie(movie)}
-  //           />
-  //         ))}
-  //       </div>
-  //       <button
-  //         onClick={() => {
-  //           setUser(null);
-  //           setToken(null);
-  //           localStorage.clear();
-  //         }}
-  //       >
-  //         Logout
-  //       </button>
-  //     </>
-  //   );
-  // };
+  };
 
   return (
     <BrowserRouter>
@@ -177,7 +127,7 @@ const MainView = () => {
                   <>
                     {movies.map((movie) => (
                       <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard movie={movie} />
+                        <MovieCard movie={movie} getMovies={getMovies} />
                       </Col>
                     ))}
                   </>
