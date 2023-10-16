@@ -1,22 +1,63 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
-const MovieCard = ({ movie, onMovieClick }) => {
+const MovieCard = ({ movie, getMovies }) => {
+  const token = localStorage.getItem('myFlixClientToken');
+  const user = JSON.parse(localStorage.getItem('user'));
+  console.log(token);
+  const movieId = movie._id;
+
+  // const [favored, setFavored] = useState(false);
+
+  const addToFavorite = (e) => {
+    // Dont send request for same movie
+    if (e.target.textContent === 'Already Favored') return;
+
+    console.log(movieId, 'ran');
+    fetch(
+      `https://myflixdbrender.onrender.com/users/${user.userName}/movies/${movieId}`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((updatedUser) => {
+        // Make sure to not add same movie to favorite movie list
+        let uniqueMovies = [];
+        updatedUser.favoriteMovies.forEach((m) => {
+          if (!uniqueMovies.includes(m)) {
+            uniqueMovies.push(m);
+          }
+        });
+
+        updatedUser.favoriteMovies = uniqueMovies;
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        // window.location.reload();
+
+        getMovies();
+      })
+      .catch((err) => console.log('Error is: ', err));
+  };
+
   return (
-    // <Card className="h-100">
-    //   <img src={movie.image} />
-    //   <div>{movie.title}</div>
-    //   <Button variant="primary" onClick={() => onMovieClick()}>
-    //     Details
-    //   </Button>
-    // </Card>
     <Card className="h-100">
       <Card.Img variant="top" src={movie.image} className="movie-image" />
       <Card.Body>
         <Card.Title>{movie.title}</Card.Title>
         <Card.Text>Directed by {movie.director.name}</Card.Text>
-        <Button onClick={() => onMovieClick()}>Details</Button>
+        <Link to={`/movies/${encodeURIComponent(movie.id)}`}>
+          <Button variant="link">Details</Button>
+        </Link>
+        <Button variant="secondary" onClick={addToFavorite}>
+          {user.favoriteMovies.includes(movieId)
+            ? 'Already Favored'
+            : 'Add to Favorites'}
+        </Button>
       </Card.Body>
     </Card>
   );
@@ -42,5 +83,4 @@ MovieCard.propTypes = {
     featured: PropTypes.bool,
     id: PropTypes.string,
   }).isRequired,
-  onMovieClick: PropTypes.func.isRequired,
 };

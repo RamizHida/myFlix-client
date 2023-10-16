@@ -50,3 +50,24 @@ p {
 p span {
   color: #000;
 }
+
+.card-body {
+  text-align: center;
+  // margin-left: -30px;
+  // display: flex;
+}
+
+.profile-cont {
+  width: auto;
+}
+
+.favorite--movie_card {
+  width: 100%;
+}
+
+@media only screen and (min-width: 769px) {
+  .profile-info {
+    width: 320px;
+    margin-left: -50px;
+  }
+}
