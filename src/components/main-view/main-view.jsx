@@ -9,6 +9,8 @@ import { Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import SearchMovieForm from '../search-movie-form/search-movie-form';
+import FilterMovie from '../filtered-movie/filtered-movie';
 
 const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -34,7 +36,6 @@ const MainView = () => {
       .then((res) => res.json())
       .then((movieList) => {
         const moviesFromAPI = movieList.map((movie) => {
-          console.log(movie, movie.featured);
           return {
             _id: movie._id,
             director: {
@@ -125,11 +126,18 @@ const MainView = () => {
                   <Col>The list is empty!</Col>
                 ) : (
                   <>
-                    {movies.map((movie) => (
-                      <Col className="mb-4" key={movie.id} md={3}>
-                        <MovieCard movie={movie} getMovies={getMovies} />
+                    <SearchMovieForm movies={movies} setMovies={setMovies} />
+                    {movies.length > 1 ? (
+                      movies.map((movie) => (
+                        <Col className="mb-4" key={movie.id} md={3}>
+                          <MovieCard movie={movie} getMovies={getMovies} />
+                        </Col>
+                      ))
+                    ) : (
+                      <Col className="mb-4" md={3}>
+                        <FilterMovie movie={movies} />
                       </Col>
-                    ))}
+                    )}
                   </>
                 )}
               </>

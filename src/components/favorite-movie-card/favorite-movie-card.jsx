@@ -8,14 +8,12 @@ const FavoriteMovieCard = ({ movie }) => {
 
   const token = localStorage.getItem('myFlixClientToken');
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(token);
   const movieId = movie._id;
 
   const handleDeleteClose = () => setDeleteShow(false);
   const handleDeleteShow = () => setDeleteShow(true);
 
   const removeMovie = () => {
-    console.log('clicked');
     fetch(
       `https://myflixdbrender.onrender.com/users/${user.userName}/movies/${movieId}`,
       {

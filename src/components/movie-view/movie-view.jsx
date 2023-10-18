@@ -13,7 +13,7 @@ const MovieView = ({ movies }) => {
   return (
     <>
       <div>
-        <img src={movie.image} className="movie-view-image" />
+        <img src={movie.image} className="movie-view-image mt-4" />
       </div>
       <div>
         <span className="movie-detials">Title: {movie.title}</span>

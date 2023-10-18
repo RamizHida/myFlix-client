@@ -47,6 +47,43 @@ p {
   height: 550px;
 }
 
+.movie-view-image-filter {
+  margin-bottom: 10px;
+  height: 440px;
+  width: 300px;
+}
+
+.property-name {
+  color: $color-secondary;
+}
+
+.property-info {
+  display: block;
+  width: 300px;
+}
+
+.container-filter {
+  margin-top: 1rem;
+}
+
+.container-filter p {
+  margin-top: 2px;
+}
+
+.btnSearch {
+  display: inline;
+}
+
+.formSearch {
+  display: flex;
+  gap: 1rem;
+  margin: 10px 0;
+}
+
+.searchMovie {
+  width: 98%;
+}
+
 p span {
   color: #000;
 }
