@@ -11,13 +11,11 @@ const SearchMovieForm = ({ movies, setMovies }) => {
     if (specificMovie.length === 0) {
       return alert('Please type a movie title');
     }
-    console.log(specificMovie, 'specificMovie');
     filterMovie = movies.filter((movie) => movie.title === specificMovie);
     if (filterMovie.length === 0) {
       return alert('No Such Movie Availble');
     }
     setMovies(filterMovie);
-    console.log(filterMovie, 'Filtered Movie');
     localStorage.setItem('filteredMovie', JSON.stringify(filterMovie));
   };
 

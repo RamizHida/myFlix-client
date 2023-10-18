@@ -10,7 +10,7 @@ import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import SearchMovieForm from '../search-movie-form/search-movie-form';
-import FilterMovie from '../../filtered-movie/filtered-movie';
+import FilterMovie from '../filtered-movie/filtered-movie';
 
 const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem('user'));
@@ -36,7 +36,6 @@ const MainView = () => {
       .then((res) => res.json())
       .then((movieList) => {
         const moviesFromAPI = movieList.map((movie) => {
-          console.log(movie, movie.featured);
           return {
             _id: movie._id,
             director: {

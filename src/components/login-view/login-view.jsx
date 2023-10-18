@@ -25,10 +25,8 @@ function LoginView({ onLoggedIn }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log('Login request: ', data);
         if (data.user) {
           localStorage.setItem('user', JSON.stringify(data.user));
-          // localStorage.setItem('myFlixClientToken', JSON.stringify(data.token));
           localStorage.setItem('myFlixClientToken', data.token);
           window.location.reload();
         } else {

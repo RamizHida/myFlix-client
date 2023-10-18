@@ -27,8 +27,6 @@ function ProfileView({ movies }) {
 
   const token = localStorage.getItem('myFlixClientToken');
 
-  // console.log(movies, 'movies');
-
   const getProfileFunction = () => {
     if (!localStorage.getItem('user')) return;
 
@@ -69,7 +67,6 @@ function ProfileView({ movies }) {
 
     const user = localStorage.getItem('user');
     const parsedUser = JSON.parse(user);
-    console.log(parsedUser.userName);
 
     const data = {
       userName: userName,

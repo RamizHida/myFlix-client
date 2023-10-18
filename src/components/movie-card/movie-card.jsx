@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 const MovieCard = ({ movie, getMovies }) => {
   const token = localStorage.getItem('myFlixClientToken');
   const user = JSON.parse(localStorage.getItem('user'));
-  console.log(token);
   const movieId = movie._id;
 
   // const [favored, setFavored] = useState(false);
@@ -15,7 +14,6 @@ const MovieCard = ({ movie, getMovies }) => {
     // Dont send request for same movie
     if (e.target.textContent === 'Already Favored') return;
 
-    console.log(movieId, 'ran');
     fetch(
       `https://myflixdbrender.onrender.com/users/${user.userName}/movies/${movieId}`,
       {
