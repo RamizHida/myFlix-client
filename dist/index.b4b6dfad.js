@@ -48368,7 +48368,7 @@ const SearchMovieForm = ({ movies, setMovies })=>{
     const handleSubmit = (e)=>{
         e.preventDefault();
         if (specificMovie.length === 0) return alert("Please type a movie title");
-        filterMovie = movies.filter((movie)=>movie.title === specificMovie);
+        const filterMovie = movies.filter((movie)=>movie.title === specificMovie);
         if (filterMovie.length === 0) return alert("No Such Movie Availble");
         setMovies(filterMovie);
         localStorage.setItem("filteredMovie", JSON.stringify(filterMovie));
