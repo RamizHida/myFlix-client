@@ -1,4 +1,4 @@
-# MyFlix-client*
+# MyFlix-client
 
 myFlix-client serves as the frontend of a movie application which allows  
 it's users to view different movies and bookmark them for easy retrieval  
