@@ -16,7 +16,7 @@ function LoginView({ onLoggedIn }) {
       password: password,
     };
 
-    fetch('https://my-flix-two.vercel.app/login', {
+    fetch('https://my-flix-sand.vercel.app/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
