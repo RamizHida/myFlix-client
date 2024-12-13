@@ -18,7 +18,7 @@ function SignUpView() {
       userBirthDate: userBirthDate,
     };
 
-    fetch('https://my-flix-66mnayibm-ramizhidas-projects.vercel.app/users', {
+    fetch('https://my-flix-two.vercel.app/users', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {
