@@ -14,12 +14,15 @@ const FavoriteMovieCard = ({ movie }) => {
   const handleDeleteShow = () => setDeleteShow(true);
 
   const removeMovie = () => {
-    fetch(`http://localhost:8080/users/${user.userName}/movies/${movieId}`, {
-      method: 'DELETE',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `https://my-flix-two.vercel.app/users/${user.userName}/movies/${movieId}`,
+      {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem('user', JSON.stringify(data));

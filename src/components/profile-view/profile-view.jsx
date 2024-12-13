@@ -33,7 +33,7 @@ function ProfileView({ movies }) {
     const user = localStorage.getItem('user');
     const parsedUser = JSON.parse(user);
 
-    fetch(`http://localhost:8080/users/${parsedUser._id}`, {
+    fetch(`https://my-flix-two.vercel.app/users/${parsedUser._id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -90,7 +90,7 @@ function ProfileView({ movies }) {
       userEmail: email,
       BirthDate: birthday,
     };
-    fetch(`http://localhost:8080/users/${parsedUser.userName}`, {
+    fetch(`https://my-flix-two.vercel.app/users/${parsedUser.userName}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ function ProfileView({ movies }) {
   };
 
   const deleteAccount = () => {
-    fetch('http://localhost:8080/users/' + userName, {
+    fetch('https://my-flix-two.vercel.app/users/' + userName, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

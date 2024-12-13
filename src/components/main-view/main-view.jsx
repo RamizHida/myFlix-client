@@ -32,7 +32,7 @@ const MainView = () => {
   const getMovies = () => {
     console.log('Token:', token); // Log the token value
 
-    fetch('http://localhost:8080/movies', {
+    fetch('https://my-flix-two.vercel.app/movies', {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
