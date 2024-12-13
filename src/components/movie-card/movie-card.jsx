@@ -15,7 +15,7 @@ const MovieCard = ({ movie, getMovies }) => {
     if (e.target.textContent === 'Already Favored') return;
 
     fetch(
-      `https://my-flix-two.vercel.app/users/${user.userName}/movies/${movieId}`,
+      `https://my-flix-66mnayibm-ramizhidas-projects.vercel.app/users/${user.userName}/movies/${movieId}`,
       {
         method: 'POST',
         headers: {

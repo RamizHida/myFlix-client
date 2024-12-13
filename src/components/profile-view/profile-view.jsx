@@ -33,9 +33,12 @@ function ProfileView({ movies }) {
     const user = localStorage.getItem('user');
     const parsedUser = JSON.parse(user);
 
-    fetch(`https://my-flix-two.vercel.app/users/${parsedUser._id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+    fetch(
+      `https://my-flix-66mnayibm-ramizhidas-projects.vercel.app/users/${parsedUser._id}`,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    )
       .then((res) => res.json())
       .then((user) => {
         setUser(user);
@@ -90,14 +93,17 @@ function ProfileView({ movies }) {
       userEmail: email,
       BirthDate: birthday,
     };
-    fetch(`https://my-flix-two.vercel.app/users/${parsedUser.userName}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://my-flix-66mnayibm-ramizhidas-projects.vercel.app/users/${parsedUser.userName}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((response) => response.json())
       .then((updatedUser) => {
         let error = updatedUser.errors;
@@ -117,14 +123,18 @@ function ProfileView({ movies }) {
   };
 
   const deleteAccount = () => {
-    fetch('https://my-flix-two.vercel.app/users/' + userName, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      'https://my-flix-66mnayibm-ramizhidas-projects.vercel.app/users/' +
+        userName,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((res) => {
         res.json;
       })
