@@ -14,15 +14,12 @@ const FavoriteMovieCard = ({ movie }) => {
   const handleDeleteShow = () => setDeleteShow(true);
 
   const removeMovie = () => {
-    fetch(
-      `https://myflixdbrender.onrender.com/users/${user.userName}/movies/${movieId}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`http://localhost:8080/users/${user.userName}/movies/${movieId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
         localStorage.setItem('user', JSON.stringify(data));

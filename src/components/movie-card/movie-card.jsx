@@ -14,15 +14,12 @@ const MovieCard = ({ movie, getMovies }) => {
     // Dont send request for same movie
     if (e.target.textContent === 'Already Favored') return;
 
-    fetch(
-      `https://myflixdbrender.onrender.com/users/${user.userName}/movies/${movieId}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
+    fetch(`http://localhost:8080/users/${user.userName}/movies/${movieId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((res) => res.json())
       .then((updatedUser) => {
         // Make sure to not add same movie to favorite movie list

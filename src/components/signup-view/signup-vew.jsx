@@ -18,7 +18,7 @@ function SignUpView() {
       userBirthDate: userBirthDate,
     };
 
-    fetch('https://myflixdbrender.onrender.com/users', {
+    fetch('http://localhost:8080/users', {
       method: 'POST',
       body: JSON.stringify(data),
       headers: {

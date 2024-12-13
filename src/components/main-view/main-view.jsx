@@ -30,11 +30,14 @@ const MainView = () => {
   }, [token]);
 
   const getMovies = () => {
-    fetch('https://myflixdbrender.onrender.com/movies', {
+    console.log('Token:', token); // Log the token value
+
+    fetch('http://localhost:8080/movies', {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((movieList) => {
+        console.log('Fetched movies:', movieList); // Check the data
         const moviesFromAPI = movieList.map((movie) => {
           return {
             _id: movie._id,
@@ -107,7 +110,7 @@ const MainView = () => {
                 {!user ? (
                   <Navigate to="/login" replace />
                 ) : movies.length === 0 ? (
-                  <Col>The list is empty!</Col>
+                  <Col>The list! is empty!</Col>
                 ) : (
                   <Col md={8}>
                     <MovieView movies={movies} />

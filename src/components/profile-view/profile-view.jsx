@@ -33,7 +33,7 @@ function ProfileView({ movies }) {
     const user = localStorage.getItem('user');
     const parsedUser = JSON.parse(user);
 
-    fetch(`https://myflixdbrender.onrender.com/users/${parsedUser._id}`, {
+    fetch(`http://localhost:8080/users/${parsedUser._id}`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -65,6 +65,22 @@ function ProfileView({ movies }) {
   const updateUser = (event) => {
     event.preventDefault();
 
+    if (!password) {
+      alert('Password is required!');
+      return;
+    }
+
+    if (!userName) {
+      alert('User name is required!');
+      return;
+    }
+
+    const form = event.target; // Get the form reference
+    if (!form.checkValidity()) {
+      form.classList.add('was-validated'); // Adds Bootstrap styles to show validation errors
+      return;
+    }
+
     const user = localStorage.getItem('user');
     const parsedUser = JSON.parse(user);
 
@@ -74,7 +90,7 @@ function ProfileView({ movies }) {
       userEmail: email,
       BirthDate: birthday,
     };
-    fetch(`https://myflixdbrender.onrender.com/users/${parsedUser.userName}`, {
+    fetch(`http://localhost:8080/users/${parsedUser.userName}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -101,7 +117,7 @@ function ProfileView({ movies }) {
   };
 
   const deleteAccount = () => {
-    fetch('https://myflixdbrender.onrender.com/users/' + userName, {
+    fetch('http://localhost:8080/users/' + userName, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -132,9 +148,9 @@ function ProfileView({ movies }) {
             <Card.Body className="profile-cont">
               <Card.Title>Profile Info</Card.Title>
               <Card.Text>
-                Username: {userName} <br />
-                Email: {email} <br />
-                Birthday: {birthday}
+                Username: {userName || 'Loading...'} <br />
+                Email: {email || 'Loading...'} <br />
+                Birthday: {birthday || 'Loading...'}
                 {/* Password: {password} */}
                 <br />
               </Card.Text>
@@ -168,33 +184,40 @@ function ProfileView({ movies }) {
         ))}
       </Row>
 
-      <Form onSubmit={updateUser}>
-        <Modal show={show} onHide={handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title className="ms-auto">Update Profile</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            {/* <Form onSubmit={updateUser}> */}
+      {/* <Form onSubmit={updateUser} noValidate className="needs-validation"> */}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title className="ms-auto">Update Profile</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form noValidate onSubmit={updateUser} className="needs-validation">
             <Form.Group className="mb-3">
               <Form.Label>Username</Form.Label>
               <Form.Control
-                type="email"
+                type="text"
                 placeholder={'Must be at least 5 Characters'}
                 defaultValue={userName}
                 minLength="5"
                 onChange={(e) => setUserName(e.target.value)}
                 required
+                className="form-control"
               />
+              <div className="invalid-feedback">
+                Username must be at least 5 characters long.
+              </div>
             </Form.Group>
 
             <Form.Group className="mb-3">
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
+                required
                 placeholder="Enter your new password"
                 onChange={(e) => setPassword(e.target.value)}
-                required
+                minLength="5"
+                className="form-control"
               />
+              <div className="invalid-feedback">Password is required.</div>
             </Form.Group>
 
             <Form.Group className="mb-3">
@@ -217,18 +240,18 @@ function ProfileView({ movies }) {
                 required
               />
             </Form.Group>
-            {/* </Form> */}
-          </Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" type="submit" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" type="submit" onClick={updateUser}>
-              Update User
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </Form>
+            <Modal.Footer>
+              <Button variant="secondary" type="button" onClick={handleClose}>
+                Close
+              </Button>
+              <Button variant="primary" type="submit">
+                Update User
+              </Button>
+            </Modal.Footer>
+          </Form>
+        </Modal.Body>
+      </Modal>
+      {/* </Form> */}
 
       <Modal show={deleteShow} onHide={handleDeleteClose}>
         <Modal.Header closeButton>
